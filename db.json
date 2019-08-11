@@ -1,0 +1,70 @@
+{
+  "funds": [
+    {
+      "id": 1,
+      "name": "Fund 1"
+    },
+    {
+      "id": 2,
+      "name": "Fund 2"
+    },
+    {
+      "id": 3,
+      "name": "Fund 3"
+    },
+    {
+      "id": 4,
+      "name": "Fund 4"
+    }
+  ],
+  "commitments": [
+    {
+      "id": 1,
+      "fund_id": 1,
+      "date": "31/12/2017",
+      "amount": 10000000.0
+    },
+    {
+      "id": 2,
+      "fund_id": 2,
+      "date": "31/03/2018",
+      "amount": 15000000.0
+    },
+    {
+      "id": 3,
+      "fund_id": 3,
+      "date": "30/06/2018",
+      "amount": 10000000.0
+    },
+    {
+      "id": 4,
+      "fund_id": 4,
+      "date": "30/09/2018",
+      "amount": 15000000.0
+    },
+    {
+      "id": 5,
+      "fund_id": 1,
+      "date": "31/12/2018",
+      "amount": 10000000.0
+    }
+  ],
+  "calls": [
+    {
+      "id": 1,
+      "call_id": 1,
+      "date": "31/01/2018",
+      "investment_name": "Investment 1",
+      "capital_requirement": 9500000.0
+    }
+  ],
+  "investments": [
+    {
+      "id": 1,
+      "call_id": 1,
+      "commitment_id": 1,
+      "fund_id": 1,
+      "investment_amount": 9500000.0
+    }
+  ]
+}
