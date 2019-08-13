@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import styled from "styled-components";
+import moment from "moment";
+import FifoStrategy from "../domain/fifoStrategy";
+import NewCallDrawdowns from "./NewCallDrawdowns";
+import FormItem from "./FormItem";
+
+const FormWrapper = styled.ul`
+  list-style-type: none;
+  min-width: 800px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  background-color: #61c1e7;
+  color: #395d73;
+  font-size: large;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 1px;
+  padding: 10px;
+`;
+
+const NewCallForm = ({ calculate, save, commitmentDrawdowns }) => {
+  const [date, setDate] = useState(moment().format("DD/MM/YYYY"));
+  const [rules, setRules] = useState(FifoStrategy.Key);
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [showDrawdowns, setShowDrawdowns] = useState(false);
+
+  const onCalculate = event => {
+    event.preventDefault();
+    calculate(rules, amount);
+    setShowDrawdowns(true);
+  };
+
+  const onSubmit = event => {
+    event.preventDefault();
+    save(date, rules, name, amount);
+  };
+
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <FormWrapper>
+          <FormItem
+            name="date"
+            label="Date"
+            value={date}
+            readonly={true}
+            onChange={e => setDate(e.target.value)}
+          />
+          <FormItem
+            name="rules"
+            label="Rules"
+            value={rules}
+            readonly={true}
+            onChange={e => setRules(e.target.value)}
+          />
+          <FormItem
+            name="name"
+            label="Investment Name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+          <FormItem
+            name="amount"
+            label="Capital Required for Investment"
+            type="number"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+          />
+        </FormWrapper>
+        <ButtonWrapper>
+          <Button data-test="calculate-button" onClick={onCalculate}>
+            Calculate
+          </Button>
+        </ButtonWrapper>
+        {showDrawdowns && (
+          <React.Fragment>
+            <NewCallDrawdowns commitmentDrawdowns={commitmentDrawdowns} />
+            <Button data-test="confirm-button">Confirm</Button>
+          </React.Fragment>
+        )}
+      </form>
+    </div>
+  );
+};
+
+export default NewCallForm;

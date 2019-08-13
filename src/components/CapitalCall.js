@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
-
 import logo from "../logo.jpg";
 import { Header } from "../styled/header";
 import Dashboard from "./Dashboard";

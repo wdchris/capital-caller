@@ -3,6 +3,8 @@ import Investment from "./investment";
 import CommitmentDrawdown from "./commitmentDrawdown";
 
 export default class FifoStrategy {
+  static Key: string = "First In First Out (FIFO)";
+
   calculateUndrawnCommitmentBeforeNotice(
     commitment: Commitment,
     investments: Investment[]

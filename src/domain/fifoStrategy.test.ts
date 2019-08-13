@@ -1,10 +1,7 @@
-import moment from "moment";
+import { parseUkDate } from "../utils/date";
 import FifoStrategy from "./fifoStrategy";
 import Commitment from "./commitment";
 import Investment from "./investment";
-
-const parseUkDate = (ukDateString: string) =>
-  moment(ukDateString, "DD/MM/YYYY HH:mm").toDate();
 
 describe("FIFO Strategy", () => {
   it("returns all commitments", () => {
