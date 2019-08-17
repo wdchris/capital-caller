@@ -19,10 +19,10 @@ const LinkButton = styled.button`
   border-radius: 3px;
   border-width: 1px;
   border-style: solid;
-  background-color: #61c1e7;
+  background-color: #395d73;
   font-size: x-large;
   cursor: pointer;
-  color: #395d73;
+  color: #ffffff;
 `;
 
 const Home = () => {

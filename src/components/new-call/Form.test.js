@@ -4,6 +4,7 @@ import { parseUkDate } from "../../utils/date";
 import CommitmentDrawdown from "../../domain/commitmentDrawdown";
 import Form from "./Form";
 import Drawdowns from "./Drawdowns";
+import Fund from "../../domain/fund";
 
 let wrapper;
 const select = selector => wrapper.find(selector).first();
@@ -29,6 +30,8 @@ const commitmentDrawdowns = [
   )
 ];
 
+const funds = [new Fund(1, "Fund 1"), new Fund(2, "Fund 2")];
+
 const mockSave = jest.fn();
 const mockCalculate = jest.fn();
 
@@ -39,6 +42,7 @@ describe("New Call Form ", () => {
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
+        funds={funds}
       />
     );
 
@@ -57,6 +61,7 @@ describe("New Call Form ", () => {
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
+        funds={funds}
       />
     );
 
@@ -77,6 +82,7 @@ describe("New Call Form ", () => {
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
+        funds={funds}
       />
     );
 
@@ -97,6 +103,7 @@ describe("New Call Form ", () => {
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
+        funds={funds}
       />
     );
 

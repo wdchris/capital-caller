@@ -13,12 +13,14 @@ const FormWrapper = styled.ul`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  padding-top: 10px;
+  padding-bottom: 20px;
 `;
 
 const Button = styled.button`
   cursor: pointer;
-  background-color: #61c1e7;
-  color: #395d73;
+  background-color: #395d73;
+  color: #ffffff;
   font-size: large;
   border-style: solid;
   border-color: #000000;
@@ -26,7 +28,7 @@ const Button = styled.button`
   padding: 10px;
 `;
 
-const Form = ({ calculate, save, commitmentDrawdowns }) => {
+const Form = ({ calculate, save, commitmentDrawdowns, funds }) => {
   const [date, setDate] = useState(moment().format("DD/MM/YYYY"));
   const [rules, setRules] = useState(FifoStrategy.Key);
   const [name, setName] = useState("");
@@ -83,8 +85,13 @@ const Form = ({ calculate, save, commitmentDrawdowns }) => {
         </ButtonWrapper>
         {showDrawdowns && (
           <React.Fragment>
-            <Drawdowns commitmentDrawdowns={commitmentDrawdowns} />
-            <Button data-test="confirm-button">Confirm</Button>
+            <Drawdowns
+              commitmentDrawdowns={commitmentDrawdowns}
+              funds={funds}
+            />
+            <ButtonWrapper>
+              <Button data-test="confirm-button">Confirm</Button>
+            </ButtonWrapper>
           </React.Fragment>
         )}
       </form>

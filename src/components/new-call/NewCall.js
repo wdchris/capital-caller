@@ -10,6 +10,7 @@ class NewCall extends React.Component {
     this.state = {
       commitments: [],
       investments: [],
+      funds: [],
       commitmentDrawdowns: []
     };
 
@@ -25,6 +26,7 @@ class NewCall extends React.Component {
     api
       .getInvestments()
       .then(investments => this.setState({ investments: investments }));
+    api.getFunds().then(funds => this.setState({ funds: funds }));
   }
 
   calculate = (rules, amount) => {
@@ -47,6 +49,7 @@ class NewCall extends React.Component {
       <Form
         calculate={this.calculate}
         save={this.save}
+        funds={this.state.funds}
         commitmentDrawdowns={this.state.commitmentDrawdowns}
       />
     );
