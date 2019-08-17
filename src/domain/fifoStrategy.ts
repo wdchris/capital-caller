@@ -2,22 +2,39 @@ import Commitment from "./commitment";
 import Investment from "./investment";
 import CommitmentDrawdown from "./commitmentDrawdown";
 
+interface Map {
+  [key: string]: number;
+}
+
 export default class FifoStrategy {
   static Key: string = "First In First Out (FIFO)";
 
+  getCommitmentInvestmentMap(investments: Investment[]): Map {
+    let result: Map = {};
+    return investments.reduce((map, curr) => {
+      let amount = map[`${curr.commitmentId}-${curr.fundId}`];
+      if (amount === undefined) {
+        amount = 0;
+      }
+
+      map[`${curr.commitmentId}-${curr.fundId}`] =
+        amount + curr.investmentAmount;
+
+      return map;
+    }, result);
+  }
+
   calculateUndrawnCommitmentBeforeNotice(
     commitment: Commitment,
-    investments: Investment[]
+    commitmentInvestments: any
   ): number {
-    return investments.reduce((acc, curr) => {
-      if (
-        curr.commitmentId === commitment.id &&
-        curr.fundId === commitment.fundId
-      ) {
-        return acc - curr.investmentAmount;
-      }
-      return acc;
-    }, commitment.amount);
+    const invested =
+      commitmentInvestments[`${commitment.id}-${commitment.fundId}`];
+    if (invested !== undefined) {
+      return commitment.amount - invested;
+    }
+
+    return commitment.amount;
   }
 
   calculateDrawdownAmounts(
@@ -62,17 +79,30 @@ export default class FifoStrategy {
     }
   }
 
+  hasEnoughUndrawnCommitmentBeforeNotice(
+    drawdowns: CommitmentDrawdown[],
+    capitalRequirement: number
+  ): boolean {
+    return (
+      drawdowns.reduce(
+        (total, curr) => (total += curr.undrawnCommitmentBeforeNotice),
+        0
+      ) >= capitalRequirement
+    );
+  }
+
   apply(
     commitments: Commitment[],
     investments: Investment[],
     capitalRequirement: number
   ): CommitmentDrawdown[] {
+    const commitmentInvestments = this.getCommitmentInvestmentMap(investments);
     const currentCommitments = commitments
       .sort((comm1, comm2) => comm1.date.getTime() - comm2.date.getTime())
       .map(commitment => {
         const undrawnCommitmentBeforeNotice = this.calculateUndrawnCommitmentBeforeNotice(
           commitment,
-          investments
+          commitmentInvestments
         );
         return new CommitmentDrawdown(
           commitment.id,
@@ -84,6 +114,15 @@ export default class FifoStrategy {
           undrawnCommitmentBeforeNotice
         );
       });
+
+    if (
+      this.hasEnoughUndrawnCommitmentBeforeNotice(
+        currentCommitments,
+        capitalRequirement
+      ) === false
+    ) {
+      throw new Error("Not enough undrawn commitments to satisfy call");
+    }
 
     return this.calculateDrawdownAmounts(
       currentCommitments,

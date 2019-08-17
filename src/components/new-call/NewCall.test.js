@@ -12,10 +12,9 @@ import {
 import NewCall from "./NewCall";
 import Fund from "../../domain/fund";
 import Commitment from "../../domain/commitment";
-import Form from "./Form";
 
+// eslint-disable-next-line no-unused-vars
 let wrapper;
-const select = selector => wrapper.find(selector).first();
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));
 
 jest.mock("../../infrastructure/jsonApi");
@@ -52,25 +51,5 @@ describe("New Call ", () => {
     expect(mockGetCommitments).toHaveBeenCalledTimes(1);
     expect(mockGetInvestments).toHaveBeenCalledTimes(1);
     expect(mockGetCalls).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls jsonApi to save data when new call added", async () => {
-    wrapper = mount(<NewCall />);
-
-    await flushPromises();
-
-    select(`[data-test="amount"]`).simulate("change", {
-      target: { value: "15000000" }
-    });
-
-    select(`[data-test="calculate-button"]`)
-      .first()
-      .simulate("click");
-
-    select(`[data-test="confirm-button"]`)
-      .first()
-      .simulate("submit");
-
-    expect(mockPostCall).toHaveBeenCalledTimes(1);
   });
 });
