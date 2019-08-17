@@ -43,7 +43,7 @@ const Form = ({ calculate, save, commitmentDrawdowns, funds }) => {
 
   const onSubmit = event => {
     event.preventDefault();
-    save(date, rules, name, amount);
+    save(date, name, amount);
   };
 
   return (

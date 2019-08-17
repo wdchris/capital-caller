@@ -33,6 +33,7 @@ const FormItem = ({
         value={value}
         readonly={readOnly}
         onChange={onChange}
+        data-test={name}
       />
     </Wrapper>
   );
