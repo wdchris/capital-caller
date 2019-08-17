@@ -1,9 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
-import { parseUkDate } from "../utils/date";
-import CommitmentDrawdown from "../domain/commitmentDrawdown";
-import NewCallForm from "./NewCallForm";
-import NewCallDrawdowns from "./NewCallDrawdowns";
+import { parseUkDate } from "../../utils/date";
+import CommitmentDrawdown from "../../domain/commitmentDrawdown";
+import Form from "./Form";
+import Drawdowns from "./Drawdowns";
 
 let wrapper;
 const select = selector => wrapper.find(selector).first();
@@ -35,25 +35,25 @@ const mockCalculate = jest.fn();
 describe("New Call Form ", () => {
   it("pressing calculate button shows drawdowns", () => {
     wrapper = mount(
-      <NewCallForm
+      <Form
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
       />
     );
 
-    expect(select(NewCallDrawdowns).exists()).toBe(false);
+    expect(select(Drawdowns).exists()).toBe(false);
 
     select(`[data-test="calculate-button"]`)
       .first()
       .simulate("click");
 
-    expect(select(NewCallDrawdowns).exists()).toBe(true);
+    expect(select(Drawdowns).exists()).toBe(true);
   });
 
   it("pressing calculate button shows confirm button", () => {
     wrapper = mount(
-      <NewCallForm
+      <Form
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
@@ -73,7 +73,7 @@ describe("New Call Form ", () => {
     mockCalculate.mockClear();
 
     wrapper = mount(
-      <NewCallForm
+      <Form
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}
@@ -93,7 +93,7 @@ describe("New Call Form ", () => {
     mockSave.mockClear();
 
     wrapper = mount(
-      <NewCallForm
+      <Form
         calculate={mockCalculate}
         save={mockSave}
         commitmentDrawdowns={commitmentDrawdowns}

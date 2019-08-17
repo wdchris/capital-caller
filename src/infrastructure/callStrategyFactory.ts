@@ -1,4 +1,4 @@
-import CallStrategy from "./callStrategy";
+import CallStrategy from "../domain/callStrategy";
 import FifoStrategy from "../domain/fifoStrategy";
 
 export default class CallStrategyFactory {

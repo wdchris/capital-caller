@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewCallDrawdowns = ({ commitmentDrawdowns }) => {
+const Drawdowns = ({ commitmentDrawdowns }) => {
   return (
     <table>
       <thead />
@@ -19,4 +19,4 @@ const NewCallDrawdowns = ({ commitmentDrawdowns }) => {
   );
 };
 
-export default NewCallDrawdowns;
+export default Drawdowns;

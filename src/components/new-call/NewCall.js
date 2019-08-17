@@ -1,7 +1,7 @@
 import React from "react";
-import NewCallForm from "./NewCallForm";
-import JsonApi from "../infrastructure/jsonApi";
-import CallStrategyFactory from "../domain/callStrategyFactory";
+import Form from "./Form";
+import JsonApi from "../../infrastructure/jsonApi";
+import CallStrategyFactory from "../../infrastructure/callStrategyFactory";
 
 class NewCall extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class NewCall extends React.Component {
 
   render() {
     return (
-      <NewCallForm
+      <Form
         calculate={this.calculate}
         save={this.save}
         commitmentDrawdowns={this.state.commitmentDrawdowns}

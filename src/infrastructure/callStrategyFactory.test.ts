@@ -1,5 +1,5 @@
 import CallStrategyFactory from "./callStrategyFactory";
-import FifoStrategy from "./fifoStrategy";
+import FifoStrategy from "../domain/fifoStrategy";
 
 describe("Call Stratgy Factory ", () => {
   it("returns FIFO when named", () => {

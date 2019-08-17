@@ -4,7 +4,7 @@ import styled from "styled-components";
 import logo from "../logo.jpg";
 import { Header } from "../styled/header";
 import Dashboard from "./Dashboard";
-import NewCall from "./NewCall";
+import NewCall from "./new-call/NewCall";
 
 const H1 = styled.h1`
   color: #395d73;

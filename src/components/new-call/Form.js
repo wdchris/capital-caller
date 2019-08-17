@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import FifoStrategy from "../domain/fifoStrategy";
-import NewCallDrawdowns from "./NewCallDrawdowns";
+import FifoStrategy from "../../domain/fifoStrategy";
+import Drawdowns from "./Drawdowns";
 import FormItem from "./FormItem";
 
 const FormWrapper = styled.ul`
@@ -26,7 +26,7 @@ const Button = styled.button`
   padding: 10px;
 `;
 
-const NewCallForm = ({ calculate, save, commitmentDrawdowns }) => {
+const Form = ({ calculate, save, commitmentDrawdowns }) => {
   const [date, setDate] = useState(moment().format("DD/MM/YYYY"));
   const [rules, setRules] = useState(FifoStrategy.Key);
   const [name, setName] = useState("");
@@ -83,7 +83,7 @@ const NewCallForm = ({ calculate, save, commitmentDrawdowns }) => {
         </ButtonWrapper>
         {showDrawdowns && (
           <React.Fragment>
-            <NewCallDrawdowns commitmentDrawdowns={commitmentDrawdowns} />
+            <Drawdowns commitmentDrawdowns={commitmentDrawdowns} />
             <Button data-test="confirm-button">Confirm</Button>
           </React.Fragment>
         )}
@@ -92,4 +92,4 @@ const NewCallForm = ({ calculate, save, commitmentDrawdowns }) => {
   );
 };
 
-export default NewCallForm;
+export default Form;
