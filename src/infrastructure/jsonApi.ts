@@ -91,7 +91,7 @@ export default class JsonApi {
             new Call(
               d.id,
               d.call_id,
-              d.date,
+              parseUkDate(d.date),
               d.investment_name,
               d.capital_requirement
             )
@@ -120,7 +120,7 @@ export default class JsonApi {
           new Call(
             data.id,
             data.call_id,
-            data.date,
+            parseUkDate(data.date),
             data.investment_name,
             data.capital_requirement
           )

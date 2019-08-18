@@ -13,8 +13,8 @@ import NewCall from "./NewCall";
 import Fund from "../../domain/fund";
 import Commitment from "../../domain/commitment";
 
-// eslint-disable-next-line no-unused-vars
 let wrapper;
+const select = selector => wrapper.find(selector).first();
 const flushPromises = () => new Promise(resolve => setImmediate(resolve));
 
 jest.mock("../../infrastructure/jsonApi");
@@ -36,20 +36,42 @@ describe("New Call ", () => {
     mockPostInvestments.mockClear();
     mockPostCall.mockClear();
 
-    mockGetFunds.mockResolvedValue(new Promise(() => funds));
-    mockGetCommitments.mockResolvedValue(new Promise(() => commitments));
-    mockGetInvestments.mockResolvedValue(new Promise(() => calls));
-    mockGetCalls.mockResolvedValue(new Promise(() => investments));
+    mockGetFunds.mockResolvedValue(funds);
+    mockGetCommitments.mockResolvedValue(commitments);
+    mockGetInvestments.mockResolvedValue(investments);
+    mockGetCalls.mockResolvedValue(calls);
   });
 
   it("calls jsonApi to load data on mount", async () => {
-    wrapper = mount(<NewCall />);
-
-    await flushPromises();
+    wrapper = await mount(<NewCall />);
+    wrapper.update();
 
     expect(mockGetFunds).toHaveBeenCalledTimes(1);
     expect(mockGetCommitments).toHaveBeenCalledTimes(1);
     expect(mockGetInvestments).toHaveBeenCalledTimes(1);
     expect(mockGetCalls).toHaveBeenCalledTimes(1);
+  });
+
+  it("calls jsonApi to save call and investments", async () => {
+    mockPostCall.mockResolvedValue({});
+    mockPostInvestments.mockResolvedValue({});
+
+    const mockHistory = { push: jest.fn() };
+
+    wrapper = await mount(<NewCall history={mockHistory} />);
+    wrapper.update();
+
+    select(`[data-test="amount"]`).simulate("change", {
+      target: { value: "15000000" }
+    });
+
+    select(`[data-test="calculate-button"]`).simulate("click");
+    select(`[data-test="confirm-button"]`).simulate("submit");
+
+    await flushPromises();
+
+    expect(mockPostCall).toHaveBeenCalledTimes(1);
+    expect(mockPostInvestments).toHaveBeenCalledTimes(1);
+    expect(mockHistory.push).toHaveBeenCalledTimes(1);
   });
 });
