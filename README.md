@@ -1,6 +1,6 @@
 # Capital Caller
 
-This project is a simulation of a capital call within an investment environment.
+This project is a simulation of a capital call within an investment environment. To use, head into the Capital Call app and then hit _new call_ on the top menu. Here you can add some data. The dashboard will then reflect any changes you've made.
 
 ## Getting started
 
